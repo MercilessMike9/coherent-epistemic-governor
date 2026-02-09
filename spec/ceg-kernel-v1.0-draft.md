@@ -1,9 +1,11 @@
-# CEG Kernel v1.0 — Draft (Fixed)
+# CEG Kernel v1.0 — Technical Draft
 
-Author/Owner: Michael Middleton  
-Date: February 2026  
-Status: DRAFT — Non-canonical  
-Authority: Informative specification (not the sole normative authority)
+**Author/Owner:** Michael Middleton  
+**Date:** February 2026  
+
+**Status:** DRAFT — Non-canonical  
+**Authority:** Informative technical specification  
+**Normative Authority:** README.md (repository root)
 
 ---
 
