@@ -1,6 +1,7 @@
-# Coherent Epistemic Governor (CEG) — Kernel v1.0
+# Coherent Epistemic Governor (CEG)
+### Kernel v1.0
 
-**Status:** Stable, reference implementation  
+**Status:** Stable, reference specification  
 **Scope:** Layer-1 epistemic constraint kernel  
 **License:** Apache License 2.0
 
@@ -8,140 +9,101 @@
 
 ## Overview
 
-The Coherent Epistemic Governor (CEG) is a non-agentic, domain-neutral epistemic control kernel designed to prevent irreversible epistemic damage in recursive or long-horizon inference systems operating under partial observability and nonstationarity.
+The **Coherent Epistemic Governor (CEG)** is a **non-agentic**, **domain-neutral** epistemic kernel whose sole function is to **constrain belief formation** in systems operating under uncertainty, partial observability, and non-stationarity.
 
-CEG does **not** optimize objectives, select actions, maximize reward, or perform policy learning.  
-Its sole responsibility is to **govern when a system is permitted to claim knowledge**.
+CEG is not a decision-making system.  
+It does not act, plan, optimize, pursue objectives, or select policies.
 
-The kernel enforces this through mechanically checkable invariants over observability, coherence, contamination, and recoverability.
+Instead, CEG enforces **hard epistemic invariants** that govern how internal belief states may be updated, retained, or emitted over time.
+
+Its purpose is to prevent **irreversible epistemic damage** in recursive or long-horizon inference processes.
 
 ---
 
 ## Core Guarantees
 
-CEG Kernel v1.0 enforces the following guarantees:
+CEG enforces the following guarantees at the kernel level:
 
-- **Observability-Gated Knowledge**  
-  Belief updates and emissions are permitted only when observability exceeds a fixed, auditable threshold.
+- **Non-Agenticity**  
+  The kernel contains no goals, utilities, rewards, preferences, policies, or action-selection logic.
 
-- **Outcome Isolation**  
-  No reward, utility, performance, or downstream outcome signal may influence epistemic state or sufficient statistics.
+- **Invariant Enforcement**  
+  Belief updates that violate defined epistemic constraints are blocked, truncated, or fail-closed.
 
-- **Fail-Closed Emission Semantics**  
-  When blind, quarantined, or halted, the kernel emits **silence**, not degraded beliefs.
+- **Bounded Belief Formation**  
+  Internal belief states remain bounded under uncertainty, drift, and recursive inference.
 
-- **Bounded Irreversible Epistemic Damage**  
-  Damage is defined as loss of guaranteed recoverability under bounded intervention.  
-  The kernel is designed to bound this quantity, not to minimize instantaneous error.
+- **Emission Gating**  
+  Outputs are limited to epistemic state summaries and constraint-compliant signals only.
 
-- **Sovereign Layer-1 Jurisdiction**  
-  Kernel decisions (silence, quarantine, rollback, halt) are constraints, not signals.  
-  No downstream system may override them.
+- **Fail-Closed Semantics**  
+  On ambiguity, invariant violation, or undefined transitions, the kernel halts or degrades safely rather than extrapolating.
 
 ---
 
 ## What This Is Not
 
-CEG is intentionally **not**:
+CEG is explicitly **not**:
 
-- an agent
-- an optimizer
-- a planner
-- a reward model
-- an alignment heuristic
-- a safety wrapper around a policy
+- A decision-making system  
+- A planner or optimizer  
+- A reinforcement learning agent  
+- A controller of external actions  
+- A safety policy layered on top of an agent  
+- A value-aligned or preference-encoding system  
 
-It is a **constraint automaton** over epistemic state.
-
----
-
-## Kernel Architecture (High Level)
-
-- Regime-aware state estimation via IMM + Kalman filtering
-- Joseph-form covariance updates for numerical stability
-- Masked and quality-gated measurement assimilation
-- Structured nullspace inflation under uncertainty
-- Contamination tracking and quarantine
-- Checkpointed mortality (rollback + controlled uncertainty expansion)
-- Explicit invariant enforcement (PSD, simplex, bounded diagnostics)
-
-All thresholds and mappings are fixed, explicit, and auditable.
+Any system that uses CEG as any of the above is **out of scope by definition**.
 
 ---
 
-## Emission Semantics
+## Architectural Positioning
 
-| Kernel Status | Emission |
-|--------------|----------|
-| OK           | Belief + uncertainty |
-| DEGRADED     | Optional (explicitly flagged) |
-| NO_SIGNAL    | **Silence** |
-| QUARANTINE   | **Silence** |
-| HALT         | **Silence** |
+CEG is intended to operate as a **governor layer**:
 
-Silence is a first-class, intentional output.
+- Below application-level logic  
+- Outside policy or action loops  
+- Independent of task, domain, or objective  
+
+It may be embedded within or adjacent to inference systems, simulators, or estimators, but it does not observe or influence the external world directly.
 
 ---
 
-## Threat Model
+## Threat Model (High-Level)
 
-The kernel is designed to operate correctly under:
+CEG is designed to mitigate:
 
-- adversarial observation masking
-- stale or delayed measurements
-- nonstationary regime switching
-- contamination attempts via statistical poisoning
-- long-horizon numerical stress
+- Runaway belief amplification  
+- Recursive self-confirmation loops  
+- Unbounded confidence escalation  
+- Silent epistemic drift under non-stationarity  
 
-It does **not** assume benign downstream behavior.
+It does **not** attempt to solve alignment, intent, or moral reasoning.
 
 ---
 
 ## Intended Use
 
-CEG is intended to be embedded as a **Layer-1 epistemic governor** beneath:
+CEG is suitable for:
 
-- planners
-- agents
-- simulators
-- long-horizon reasoning systems
-- recursive inference pipelines
-
-Downstream layers may fail, optimize poorly, or behave adversarially without compromising epistemic integrity.
+- Long-horizon inference systems  
+- Recursive estimators and simulators  
+- Systems operating under partial observability  
+- Architectures requiring epistemic safety guarantees  
 
 ---
 
 ## Non-Goals (Explicit)
 
-- No claims about intelligence, consciousness, or agency
-- No biological analogies
-- No metaphysical assumptions
-- No alignment rhetoric
+CEG does not attempt to:
 
-This is a control-theoretic artifact.
-
----
-
-## Maturity
-
-Kernel v1.0 is:
-
-- conceptually complete
-- invariant-driven
-- auditable
-- reference-grade
-
-A formal appendix (forward-invariance proof sketch, recoverability CTL example, regret dominance bound) is planned but intentionally excluded from this initial drop to keep the kernel surface minimal.
-
----
-
-## Attribution
-
-© Michael Middleton.
+- Choose correct beliefs  
+- Optimize outcomes  
+- Enforce external safety policies  
+- Interpret human values  
+- Prevent misuse at the application layer  
 
 ---
 
 ## License
 
-Licensed under the Apache License, Version 2.0.  
-See `LICENSE` for details.
+Licensed under the Apache License, Version 2.0.
