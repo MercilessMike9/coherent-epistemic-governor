@@ -1,109 +1,99 @@
 # Coherent Epistemic Governor (CEG)
-### Kernel v1.0
 
-**Status:** Stable, reference specification  
-**Scope:** Layer-1 epistemic constraint kernel  
-**License:** Apache License 2.0
-
----
+**Status:** Stable Reference Specification  
+**Version:** v1.0 (Frozen)  
+**License:** Apache License 2.0  
 
 ## Overview
 
-The **Coherent Epistemic Governor (CEG)** is a **non-agentic**, **domain-neutral** epistemic kernel whose sole function is to **constrain belief formation** in systems operating under uncertainty, partial observability, and non-stationarity.
+The **Coherent Epistemic Governor (CEG)** is a **non-agentic, invariant-enforcing epistemic kernel** designed to bound belief formation under uncertainty, non-stationarity, and recursive self-reference.
 
-CEG is not a decision-making system.  
-It does not act, plan, optimize, pursue objectives, or select policies.
+CEG operates strictly at **Layer-1 (epistemic estimation only)**.  
+It does **not** act, plan, optimize, decide, pursue objectives, or select policies.
 
-Instead, CEG enforces **hard epistemic invariants** that govern how internal belief states may be updated, retained, or emitted over time.
+Its sole function is to **govern epistemic commitment** by enforcing hard structural invariants on belief updates, uncertainty propagation, regime tracking, and emission. When those invariants cannot be guaranteed, the kernel **fails closed** via suppression, rollback, quarantine, or halt.
 
-Its purpose is to prevent **irreversible epistemic damage** in recursive or long-horizon inference processes.
+## What Problem This Addresses
 
----
+Long-horizon and recursive inference systems (including self-referential or self-improving systems) are vulnerable to epistemic pathologies such as:
 
-## Core Guarantees
+- Runaway confidence escalation  
+- Recursive self-confirmation loops  
+- Silent belief drift under non-stationarity  
+- Irreversible epistemic damage from invalid updates  
 
-CEG enforces the following guarantees at the kernel level:
+CEG treats these as **structural hazards**, not behavioral or moral failures, and addresses them mechanically at the epistemic boundary.
 
-- **Non-Agenticity**  
-  The kernel contains no goals, utilities, rewards, preferences, policies, or action-selection logic.
+## What This Is
 
-- **Invariant Enforcement**  
-  Belief updates that violate defined epistemic constraints are blocked, truncated, or fail-closed.
-
-- **Bounded Belief Formation**  
-  Internal belief states remain bounded under uncertainty, drift, and recursive inference.
-
-- **Emission Gating**  
-  Outputs are limited to epistemic state summaries and constraint-compliant signals only.
-
-- **Fail-Closed Semantics**  
-  On ambiguity, invariant violation, or undefined transitions, the kernel halts or degrades safely rather than extrapolating.
-
----
+- A **sovereign epistemic constraint automaton**
+- A **fail-closed governor** over belief emission
+- A **regime-aware estimator** with bounded recoverability
+- A **non-semantic, domain-neutral kernel**
+- A **Layer-1 primitive**, intended to sit beneath any agentic, planning, or policy layer
 
 ## What This Is Not
 
-CEG is explicitly **not**:
+CEG is **not**:
 
-- A decision-making system  
-- A planner or optimizer  
-- A reinforcement learning agent  
-- A controller of external actions  
-- A safety policy layered on top of an agent  
-- A value-aligned or preference-encoding system  
+- An agent
+- A planner or optimizer
+- A reinforcement learning system
+- A policy selector or controller
+- A value alignment mechanism
+- A safety overlay or moderation layer
+- A cognitive or philosophical model
 
-Any system that uses CEG as any of the above is **out of scope by definition**.
+It introduces **no goals, utilities, rewards, preferences, policies, or action selection logic**.
 
----
+## Core Guarantees (v1.0)
 
-## Architectural Positioning
+CEG v1.0 enforces the following guarantees:
 
-CEG is intended to operate as a **governor layer**:
+- **Emission jurisdiction:** Epistemic estimates may only be emitted when all invariants hold.
+- **Fail-closed semantics:** Below observability thresholds or during quarantine, emission is suppressed.
+- **Outcome isolation:** Downstream outcomes cannot feed back into epistemic state.
+- **Bounded belief states:** Covariances remain PSD; regime weights remain on the simplex.
+- **Recoverability:** Checkpoint mortality enables rollback without amnesia.
+- **Non-agenticity:** The kernel cannot act or optimize by construction.
 
-- Below application-level logic  
-- Outside policy or action loops  
-- Independent of task, domain, or objective  
+## Canonical Authority
 
-It may be embedded within or adjacent to inference systems, simulators, or estimators, but it does not observe or influence the external world directly.
+The **sole normative authority** for CEG v1.0 is:
 
----
+spec/CEG-KERNEL-v1.0.md
 
-## Threat Model (High-Level)
+All other files (README, CHANGELOG, GOVERNANCE, drafts, examples) are **informative** unless explicitly stated otherwise.
 
-CEG is designed to mitigate:
+## Provenance
 
-- Runaway belief amplification  
-- Recursive self-confirmation loops  
-- Unbounded confidence escalation  
-- Silent epistemic drift under non-stationarity  
+This specification was iteratively developed in private, refined through adversarial self-review and control-theoretic analysis, and publicly frozen as **v1.0** on **February 9, 2026**.
 
-It does **not** attempt to solve alignment, intent, or moral reasoning.
+The Git tag and commit history constitute the authoritative public timestamp.
 
----
+## Repository Structure
 
-## Intended Use
+.
+├── README.md
+├── LICENSE
+├── CHANGELOG.md
+├── GOVERNANCE.md
+└── spec/
+    └── CEG-KERNEL-v1.0.md
 
-CEG is suitable for:
+## Usage & Implementation
 
-- Long-horizon inference systems  
-- Recursive estimators and simulators  
-- Systems operating under partial observability  
-- Architectures requiring epistemic safety guarantees  
+This repository currently provides a **reference specification**, not a production implementation.
 
----
+The specification is intended to be implemented independently, cited, audited, and used as a bounded epistemic layer beneath agentic systems.
 
-## Non-Goals (Explicit)
-
-CEG does not attempt to:
-
-- Choose correct beliefs  
-- Optimize outcomes  
-- Enforce external safety policies  
-- Interpret human values  
-- Prevent misuse at the application layer  
-
----
+A minimal reference implementation may be added in future versions, but **v1.0 is specification-complete**.
 
 ## License
 
-Licensed under the Apache License, Version 2.0.
+This project is licensed under the **Apache License 2.0**.
+
+## Status
+
+CEG v1.0 is **frozen**.  
+All future changes must occur under new versions according to `GOVERNANCE.md`.
