@@ -26,23 +26,23 @@ CEG treats these as **structural hazards**, not behavioral or moral failures, an
 
 ## What This Is
 
-- A **sovereign epistemic constraint automaton**
-- A **fail-closed governor** over belief emission
-- A **regime-aware estimator** with bounded recoverability
-- A **non-semantic, domain-neutral kernel**
-- A **Layer-1 primitive**, intended to sit beneath any agentic, planning, or policy layer
+- A sovereign epistemic constraint automaton  
+- A fail-closed governor over belief emission  
+- A regime-aware estimator with bounded recoverability  
+- A non-semantic, domain-neutral kernel  
+- A Layer-1 primitive intended to sit beneath any agentic, planning, or policy layer  
 
 ## What This Is Not
 
-CEG is **not**:
+CEG is not:
 
-- An agent
-- A planner or optimizer
-- A reinforcement learning system
-- A policy selector or controller
-- A value alignment mechanism
-- A safety overlay or moderation layer
-- A cognitive or philosophical model
+- An agent  
+- A planner or optimizer  
+- A reinforcement learning system  
+- A policy selector or controller  
+- A value alignment mechanism  
+- A safety overlay or moderation layer  
+- A cognitive or philosophical model  
 
 It introduces **no goals, utilities, rewards, preferences, policies, or action selection logic**.
 
@@ -50,26 +50,35 @@ It introduces **no goals, utilities, rewards, preferences, policies, or action s
 
 CEG v1.0 enforces the following guarantees:
 
-- **Emission jurisdiction:** Epistemic estimates may only be emitted when all invariants hold.
-- **Fail-closed semantics:** Below observability thresholds or during quarantine, emission is suppressed.
-- **Outcome isolation:** Downstream outcomes cannot feed back into epistemic state.
-- **Bounded belief states:** Covariances remain PSD; regime weights remain on the simplex.
-- **Recoverability:** Checkpoint mortality enables rollback without amnesia.
-- **Non-agenticity:** The kernel cannot act or optimize by construction.
+- **Emission jurisdiction:** Epistemic estimates may only be emitted when all invariants hold.  
+- **Fail-closed semantics:** Below observability thresholds or during quarantine, emission is suppressed.  
+- **Outcome isolation:** Downstream outcomes cannot feed back into epistemic state.  
+- **Bounded belief states:** Covariances remain PSD; regime weights remain on the simplex.  
+- **Recoverability:** Checkpoint mortality enables rollback without amnesia.  
+- **Non-agenticity:** The kernel cannot act or optimize by construction.  
 
-## Canonical Authority
+## Canonical Authority (Normative)
 
-The **sole normative authority** for CEG v1.0 is:
+The **sole normative authority** for **CEG v1.0** is:
 
-spec/CEG-KERNEL-v1.0.md
+- `spec/CEG-KERNEL-v1.0.md`
 
-All other files (README, CHANGELOG, GOVERNANCE, drafts, examples) are **informative** unless explicitly stated otherwise.
+All other files (including **README.md**, **CHANGELOG.md**, **GOVERNANCE.md**, **PROVENANCE.md**, drafts, and supporting materials) are **informational** unless explicitly stated otherwise.
+
+## Releases / Frozen Anchors
+
+This repository uses a **specification-first** versioning model. Tags/releases anchor immutable specification states:
+
+- **Kernel v1.0 specification freeze (canonical):** `v1.0-spec`  
+- **Sidecar v0.1 protocol freeze (non-normative to Kernel v1.0):** `ceg-sidecar-v0.1`
+
+Do **not** move tags. New work must land under new versions/tags.
 
 ## Provenance
 
-This specification was iteratively developed in private, refined through adversarial self-review and control-theoretic analysis, and publicly frozen as **v1.0** on **February 9, 2026**.
+This specification was iteratively developed in private, refined through adversarial self-review and control-theoretic analysis, and publicly frozen as **v1.0** in **February 2026**.
 
-The Git tag and commit history constitute the authoritative public timestamp.
+The **Git tags/releases** and commit history constitute the authoritative public timestamp.
 
 ## Repository Structure
 
@@ -79,7 +88,11 @@ The Git tag and commit history constitute the authoritative public timestamp.
 ├── CHANGELOG.md
 ├── GOVERNANCE.md
 └── spec/
-    └── CEG-KERNEL-v1.0.md
+    ├── CEG-KERNEL-v1.0.md
+    ├── PROVENANCE.md
+    ├── related-work.md
+    ├── threat-model.md
+    └── CEG-SIDECAR-v0.1.md
 
 ## Usage & Implementation
 
@@ -95,5 +108,5 @@ This project is licensed under the **Apache License 2.0**.
 
 ## Status
 
-CEG v1.0 is **frozen**.  
+**CEG v1.0 is frozen.**  
 All future changes must occur under new versions according to `GOVERNANCE.md`.
