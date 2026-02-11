@@ -1,47 +1,49 @@
 # Provenance
 
-This repository contains the canonical normative specification for the
-Coherent Epistemic Governor (CEG) Kernel.
+This repository contains the canonical normative specification for the Coherent Epistemic Governor (CEG) Kernel.
+
+Author/Owner: Michael Middleton  
+No transfer of ownership or authorship is implied by publication.
+
+---
 
 ## Normative Authority
 
 The file:
 
-    CEG-KERNEL-v1.0.md
+`spec/CEG-KERNEL-v1.0.md`
 
 is the **sole normative authority** for the CEG Kernel v1.0.
 
-All other documents in this repository — including drafts, threat models,
-related work, governance notes, and explanatory materials — are
-**non-normative** and provided for context only. They do not modify,
-override, or extend the kernel’s binding semantics.
+All other documents in this repository are **non-normative with respect to Kernel v1.0 semantics**. They do not modify, override, extend, or reinterpret `spec/CEG-KERNEL-v1.0.md`.
 
-## Authorship and Ownership
+(Other documents may be normative for their own scopes, e.g., integration protocols, but never for Kernel v1.0.)
 
-Author / Owner: Michael Middleton
-
-The CEG Kernel architecture, specification, and terminology originate
-with the author listed above. No transfer of ownership or authorship
-is implied by publication.
+---
 
 ## Versioning Policy
 
-## Freeze Record (Verifiable)
+- `spec/CEG-KERNEL-v1.0.md` is **frozen and canonical**.
+- Any future revision must be released as a **new version** in a **separate file** (e.g., `CEG-KERNEL-v1.1.md`, `CEG-KERNEL-v2.0.md`).
+- Drafts, if any exist, are **non-normative** and must not be colocated with canonical spec artifacts.
 
-Canonical file: `spec/CEG-KERNEL-v1.0.md`
+---
+
+## Freeze Record (Verifiable Anchor)
+
+Canonical file: `spec/CEG-KERNEL-v1.0.md`  
 Spec ID: `ceg-kernel-v1.0`
 
-Freeze tag/release: `<TAG>`
-Freeze commit: `<COMMIT_SHA>`
-SHA-256 (bytes at freeze commit): `<SHA256>`
+Freeze tag/release: `ceg-kernel-v1.0-freeze-2026-02-09T02-08Z`  
+Freeze commit: `837e76d0b7e75b4d3e22be28bc1a17f46ee88861`
 
-Reproduce:
-- `git checkout <COMMIT_SHA>`
-- `shasum -a 256 spec/CEG-KERNEL-v1.0.md`  (must match `<SHA256>`)
-- `CEG-KERNEL-v1.0.md` is frozen and canonical.
-- Any future revisions must be released as a new major or minor version
-  (e.g., v1.1, v2.0) in a separate file.
-- Draft files carry **no normative force**.
+SHA-256 (bytes at freeze commit): `TBD` (optional; compute offline)
+
+Reproduce (optional):
+- `git checkout 837e76d0b7e75b4d3e22be28bc1a17f46ee88861`
+- `shasum -a 256 spec/CEG-KERNEL-v1.0.md`
+
+---
 
 ## Publication Date
 
