@@ -26,6 +26,18 @@ is implied by publication.
 
 ## Versioning Policy
 
+## Freeze Record (Verifiable)
+
+Canonical file: `spec/CEG-KERNEL-v1.0.md`
+Spec ID: `ceg-kernel-v1.0`
+
+Freeze tag/release: `<TAG>`
+Freeze commit: `<COMMIT_SHA>`
+SHA-256 (bytes at freeze commit): `<SHA256>`
+
+Reproduce:
+- `git checkout <COMMIT_SHA>`
+- `shasum -a 256 spec/CEG-KERNEL-v1.0.md`  (must match `<SHA256>`)
 - `CEG-KERNEL-v1.0.md` is frozen and canonical.
 - Any future revisions must be released as a new major or minor version
   (e.g., v1.1, v2.0) in a separate file.
