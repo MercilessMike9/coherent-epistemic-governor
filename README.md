@@ -5,7 +5,11 @@
 **License:** Apache License 2.0  
 
 ## Overview
+## Visualization
 
+Kernel runtime state transitions:
+
+[View state machine → state-machine.md](state-machine.md)
 The **Coherent Epistemic Governor (CEG)** is a **non-agentic**, **invariant-enforcing** epistemic kernel designed to bound belief formation under uncertainty, non-stationarity, and recursive self-reference.
 
 CEG operates strictly at **Layer-1** (epistemic estimation only). It does **not** act, plan, optimize, decide, pursue objectives, or select policies.
