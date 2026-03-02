@@ -5,291 +5,293 @@
 
 ---
 
-## Purpose
+## 1. Purpose
 
-This document defines a family of witness environments used to demonstrate structural separations between three classes of epistemic systems:
+This appendix defines a formally specified witness environment used to demonstrate a structural separation between three classes of epistemic systems:
 
-• Forced-output bounded-history predictors  
-• Immortal always-assimilating estimators  
-• The Coherent Epistemic Governor (CEG) kernel  
+- Class F: forced-output bounded-history predictors  
+- Class I: immortal always-assimilating estimators  
+- Class CEG: the Coherent Epistemic Governor kernel  
 
-The goal is to show that CEG’s defining mechanisms — emission gating, quarantine, mortality, and sovereignty — are not arbitrary design choices but are structurally necessary to maintain bounded epistemic damage and reliable conditional inference under adversarial non-stationarity.
+The objective is to show that emission gating, quarantine, mortality, and jurisdiction are structurally necessary to ensure bounded epistemic damage and recoverable inference under adversarial non-stationarity.
 
-This appendix is **informative only**.  
-It does not modify kernel semantics.
+This document is **informative only** and does not modify kernel semantics.
 
 ---
 
-## Separation Framework
+## 2. Separation Framework
 
 We consider a three-way separation between:
 
-### Class F — Forced-Output Bounded-History Predictors
+### 2.1 Class F — Forced-Output Bounded-History Predictors
 
-Systems that:
+A predictor belongs to Class F if:
 
-• Must emit predictions every step  
-• Use only a fixed recent observation window  
-• Cannot suppress emission  
-• Cannot abstain  
-
-Formally:
-
-g_t = g(H_t)
-
-where:
-
-H_t = y_{t−m+1:t}
-
-for fixed history length m.
-
----
-
-### Class I — Immortal Assimilating Estimators
-
-Systems that:
-
-• Maintain internal belief state b_t  
-• Update every step using observations  
-• Always assimilate incoming data  
-• Have no quarantine or rollback mechanisms  
+1. It must emit a prediction at every time step.
+2. It may only use a fixed observation window of length m.
+3. It cannot suppress emission.
 
 Formally:
 
-b_{t+1} = U(b_t, y_t)
+gₜ = g(yₜ₋ₘ₊₁ : yₜ)
 
-These include Bayesian filters without reset logic, RNN estimators, and similar adaptive predictors.
+for fixed m < ∞.
 
 ---
 
-### Class CEG — The Kernel
+### 2.2 Class I — Immortal Assimilating Estimators
 
-Defined by the frozen v1.0 specification.
+An estimator belongs to Class I if:
+
+1. It maintains internal belief state bₜ.
+2. It assimilates every observation.
+3. It has no quarantine or rollback.
+
+Formally:
+
+bₜ₊₁ = U(bₜ, yₜ)
+
+with no admissible operation that discards or isolates data.
+
+---
+
+### 2.3 Class CEG — Kernel v1.0
+
+Defined by the canonical specification.
 
 Key properties:
 
-• Emission gating based on invariants  
-• Suppression under low observability or contamination  
-• Quarantine forbidding assimilation  
-• Mortality via rollback and entropy broadening  
-• Jurisdictional sovereignty over downstream reliance  
+- Emission jurisdiction enforced mechanically.
+- Suppression when observability or invariants fail.
+- Quarantine forbids assimilation.
+- Mortality resets via checkpoint rollback.
+- Sovereignty restricts downstream reliance.
 
 ---
 
-## Witness Environment
+## 3. Witness Environment
 
-### Regime-Switching Delayed XOR with Poison Budget
+### Regime-Switching Delayed XOR with Bounded Contamination
 
-This environment is designed to simultaneously stress:
+This environment stresses:
 
-• Regime identification  
-• Observability collapse  
-• Contamination detection  
-• Recovery after poisoning  
-• Emission jurisdiction  
-
----
-
-## Generative Model
-
-### Latent State
-
-x_t ∈ {0,1}  
-Independent and identically distributed:
-
-x_t ~ Bernoulli(1/2)
+- Regime identification
+- Observability collapse
+- Adversarial contamination
+- Recovery requirements
+- Emission jurisdiction
 
 ---
 
-### Regime Process
+## 4. Generative Model
 
-r_t ∈ {A, B}
+### 4.1 Latent Process
 
-Follows a Markov chain with transition matrix Π.
+xₜ ∈ {0,1}
 
-Each regime has distinct observation noise parameters.
+Independent identically distributed:
 
-Regime switching induces non-stationarity.
+xₜ ~ Bernoulli(1/2)
 
 ---
 
-### Observation Model
+### 4.2 Regime Process
+
+rₜ ∈ {A,B}
+
+Follows an ergodic Markov chain with transition matrix Π satisfying:
+
+Πᵢⱼ ≥ α > 0 for all i,j
+
+This implies minimum expected dwell time and guarantees regime recurrence.
+
+---
+
+### 4.3 Observation Model
 
 Observations:
 
-y_t = (r_t, z_t)
+yₜ = (rₜ, zₜ)
 
 where:
 
-z_t = x_{t−d} ⊕ η_t
+zₜ = xₜ₋𝑑 ⊕ ηₜ
 
-d ≥ 1 is fixed delay.
+Delay:
+
+d ≥ 1 fixed.
 
 Noise:
 
-η_t ~ Bernoulli(p_{r_t})
+ηₜ ~ Bernoulli(pᵣₜ)
 
 with:
 
-p_A ≠ p_B
+0 < p_A < p_B < 1/2
 
-Thus the correct mapping between observations and latent state depends on:
-
-• Regime identification  
-• Delay compensation  
-• Noise estimation  
+This ensures regimes are statistically distinguishable.
 
 ---
 
-### Contamination Process
+### 4.4 Contamination Model
 
-Adversary selects contamination intervals:
+An adversary selects contamination intervals Tₚₒᵢₛₒₙ subject to:
 
-t ∈ T_poison
+|Tₚₒᵢₛₒₙ| / T ≤ ρ
 
-Subject to budget:
+for fixed 0 < ρ < 1.
 
-|T_poison| / T ≤ ρ
+During contaminated steps:
 
-During contaminated intervals:
+yₜ is drawn from distribution Qₜ satisfying:
 
-Observations are drawn from arbitrary distributions Q_t satisfying bounded divergence constraints.
+TV(Qₜ, P_clean) ≤ ε
 
----
-
-## Key Structural Property
-
-For any fixed observation window length m:
-
-I(y_{t−m:t}; x_{t+1}) ≈ 0
-
-under sufficient delay, switching frequency, and noise.
-
-This implies bounded-history predictors cannot recover predictive signal reliably.
+where TV denotes total variation distance.
 
 ---
 
-## Evaluation Metrics
+## 5. Structural Property
 
-Separation is evaluated using suppression-aware metrics:
+For any fixed window size m:
 
-### Conditional Accuracy
+There exists m* such that for all m < m*:
 
-Accuracy measured only when the system emits:
+I(yₜ₋ₘ : yₜ ; xₜ₊₁) ≤ δ
 
-P(correct | emission)
+for arbitrarily small δ under sufficient delay d and switching rate α.
 
----
-
-### Calibration Error
-
-Reliability of probabilistic predictions on emitted steps.
+This implies bounded-history predictors cannot recover predictive signal.
 
 ---
 
-### Duty Cycle
+## 6. Evaluation Metrics
 
-Fraction of time the system emits non-null outputs.
+### 6.1 Conditional Accuracy
 
----
+Accuracy evaluated only when emission occurs:
 
-### Epistemic Damage Bound
-
-Maximum divergence from the clean posterior after contamination periods.
+P(correct | emitted)
 
 ---
 
-## Separation Theorems
+### 6.2 Calibration Error
 
-### Theorem A — Failure of Forced-Output Predictors
-
-For any fixed history length m below a threshold determined by delay and switching dynamics:
-
-Any Class F predictor has conditional accuracy bounded by:
-
-1/2 + ε
-
-where ε → 0 under sufficient switching or delay.
+Expected calibration error on emitted predictions.
 
 ---
 
-### Theorem B — Unbounded Damage in Immortal Estimators
+### 6.3 Duty Cycle
 
-Under non-zero contamination budget ρ:
-
-There exists an adversarial contamination strategy such that any Class I estimator experiences:
-
-• Persistent regime misidentification  
-• Non-vanishing calibration error  
-• Irreversible belief corruption  
-
-Infinitely often or in expectation.
+Fraction of time the system emits.
 
 ---
 
-### Theorem C — Bounded Damage and Recovery in CEG
+### 6.4 Damage Bound
+
+Maximum KL divergence from clean posterior:
+
+supₜ D_KL(π_clean || π_estimator)
+
+measured outside contamination intervals.
+
+---
+
+## 7. Separation Theorems
+
+### Theorem A — Failure of Class F
+
+For any m < m*:
+
+sup_g∈F P(correct) ≤ 1/2 + O(δ)
+
+where δ → 0 as d or switching rate increases.
+
+---
+
+### Theorem B — Irreversible Damage in Class I
+
+For any estimator in Class I and any contamination budget ρ > 0:
+
+There exists an admissible adversary such that:
+
+limsupₜ D_KL(π_clean || π_estimator) ≥ C
+
+for constant C > 0.
+
+Thus epistemic damage remains non-vanishing.
+
+---
+
+### Theorem C — Bounded Damage in CEG
 
 Under the same environment:
 
 The CEG kernel guarantees:
 
-• Suppression during unobservable or contaminated periods  
-• No assimilation of quarantined data  
-• Bounded divergence from clean posterior  
-• Recovery of calibration after sufficient clean exposure  
+1. Assimilation only during admissible observability.
+2. No incorporation of contaminated observations.
+3. Reset after persistent mismatch.
 
-Conditional accuracy on emitted steps converges toward the optimal achievable level.
+Therefore:
+
+supₜ D_KL(π_clean || π_CEG) ≤ B
+
+for finite constant B depending only on kernel parameters.
+
+Additionally:
+
+limₜ→∞ P(correct | emitted) → P_opt
+
+where P_opt is optimal achievable accuracy.
 
 ---
 
 ### Theorem J — Jurisdictional Sovereignty
 
-If downstream consumers implement the Null-Payload Consumer Contract:
+If consumers implement the null-payload contract:
 
-During suppression states:
+Then during suppression states:
 
-NO_SIGNAL  
-QUARANTINE  
-RESET  
-HALT  
+NO_SIGNAL, QUARANTINE, RESET, HALT
 
-Downstream action sets are restricted to predefined safe subsets.
+the downstream action set is restricted to:
 
-Illegal actions become unreachable.
+A_safe ⊂ A_total
 
----
-
-## Interpretation
-
-These results demonstrate that:
-
-• Forced emission is incompatible with reliable inference under adversarial non-stationarity.  
-• Continuous assimilation without quarantine leads to irreversible epistemic damage.  
-• Suppression, quarantine, and mortality are structurally necessary mechanisms.  
-
-CEG’s architecture represents a distinct epistemic system class rather than an incremental refinement of existing estimators.
+Thus unsafe actions are unreachable.
 
 ---
 
-## Scope Limitations
+## 8. Interpretation
+
+These results demonstrate:
+
+- Forced emission is incompatible with reliable inference under non-stationarity.
+- Continuous assimilation without quarantine produces irreversible damage.
+- Emission suppression and mortality are structurally necessary mechanisms.
+
+CEG therefore represents a distinct epistemic system class.
+
+---
+
+## 9. Scope
 
 This appendix provides:
 
-• Formal witness environment definitions  
-• Separation theorem statements  
-• Structural proof intuition  
+- Formal environment definition
+- Separation theorem statements
+- Structural justification
 
-It does not include full mathematical proofs, which are reserved for future technical publications.
+Complete mathematical proofs are reserved for future technical publications.
 
 ---
 
-## Relationship to Kernel Specification
+## 10. Relationship to Kernel Specification
 
-This appendix:
+This appendix supports conceptual justification only.
 
-Supports the conceptual justification of the CEG kernel.
-
-It does not define, alter, or extend kernel behavior.
+It does not define or alter kernel behavior.
 
 The sole normative authority remains:
 
